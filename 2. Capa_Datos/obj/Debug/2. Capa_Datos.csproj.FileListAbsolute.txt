@@ -1,0 +1,9 @@
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\bin\Debug\_2.Capa_Datos.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\bin\Debug\_2.Capa_Datos.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\bin\Debug\_1.Capa_Entidades.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\bin\Debug\_1.Capa_Entidades.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\2. Capa_Datos.csproj.AssemblyReference.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\2. Capa_Datos.csproj.CoreCompileInputs.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\2. Capa_.0CC673B3.Up2Date
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\_2.Capa_Datos.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\_2.Capa_Datos.pdb

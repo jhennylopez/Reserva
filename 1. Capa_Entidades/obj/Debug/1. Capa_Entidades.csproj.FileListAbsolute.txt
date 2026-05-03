@@ -1,0 +1,6 @@
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\bin\Debug\_1.Capa_Entidades.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\bin\Debug\_1.Capa_Entidades.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\obj\Debug\1. Capa_Entidades.csproj.AssemblyReference.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\obj\Debug\1. Capa_Entidades.csproj.CoreCompileInputs.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\obj\Debug\_1.Capa_Entidades.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\1. Capa_Entidades\obj\Debug\_1.Capa_Entidades.pdb

@@ -1,0 +1,11 @@
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_3.Capa_Lógica.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_3.Capa_Lógica.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_1.Capa_Entidades.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_2.Capa_Datos.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_1.Capa_Entidades.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\bin\Debug\_2.Capa_Datos.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\obj\Debug\3. Capa_Lógica.csproj.AssemblyReference.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\obj\Debug\3. Capa_Lógica.csproj.CoreCompileInputs.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\obj\Debug\3. Capa_.A3344CF7.Up2Date
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\obj\Debug\_3.Capa_Lógica.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\3. Capa_Lógica\obj\Debug\_3.Capa_Lógica.pdb
