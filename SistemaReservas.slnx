@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="1. Capa_Entidades/1. Capa_Entidades.csproj" Id="f06c4a1a-7a6f-4992-a7bf-e30197e069d5" />
+  <Project Path="2. Capa_Datos/2. Capa_Datos.csproj" Id="a40dede7-39ea-4998-b441-54d785b52e73" />
+  <Project Path="3. Capa_Lógica/3. Capa_Lógica.csproj" Id="fd283526-753a-4808-8f7f-ba0ed8b04b9a" />
+  <Project Path="4. Capa_Presentacion/4. Capa_Presentacion.csproj" Id="58e548d2-591d-42e4-ad77-adb8e633ea1e" />
+</Solution>
