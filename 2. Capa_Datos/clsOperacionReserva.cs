@@ -9,46 +9,61 @@ namespace Capa_Datos
     {
         clsConexion objConectar = new clsConexion();
 
-        public void IngresarReserva(clsReserva DatosI)
+        public void IngresarReservaConFactura(clsReserva DatosReserva, clsFactura DatosFactura)
         {
+            SqlTransaction transaccion = null;
             try
             {
                 objConectar.Abrir();
-                // Asegúrate que los nombres de las columnas coincidan exactamente con tu imagen:
-                // Id_reserva, fecha_ingreso, fecha_salida, numero_personas, tipo, Id_huesped, Id_alojamiento
-                string query = "INSERT INTO Reserva (fecha_ingreso, fecha_salida, numero_personas, tipo, Id_huesped, Id_alojamiento) " +
-                               "VALUES (@ingreso, @salida, @numPer, @tipo, @idHuesped, @idAloj)";
+                transaccion = objConectar.conectar.BeginTransaction();
 
-                SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
+                // 1. Insertar Reserva y obtener el ID generado mediante SCOPE_IDENTITY()
+                string queryReserva = @"INSERT INTO Reserva (fecha_ingreso, fecha_salida, numero_personas, tipo, Id_huesped, Id_alojamiento) 
+                                VALUES (@ingreso, @salida, @numPer, @tipo, @idHuesped, @idAloj);
+                                SELECT SCOPE_IDENTITY();";
 
-                // Usamos .Date para evitar conflictos de horas/minutos en SQL
-                comandoSql.Parameters.AddWithValue("@ingreso", DatosI.Fecha_ingreso.Date);
-                comandoSql.Parameters.AddWithValue("@salida", DatosI.Fecha_salida.Date);
-                comandoSql.Parameters.AddWithValue("@numPer", DatosI.Numero_personas);
-                comandoSql.Parameters.AddWithValue("@tipo", DatosI.Tipo);
-                comandoSql.Parameters.AddWithValue("@idHuesped", DatosI.Id_huesped);
-                comandoSql.Parameters.AddWithValue("@idAloj", DatosI.Id_alojamiento);
+                SqlCommand cmdReserva = new SqlCommand(queryReserva, objConectar.conectar, transaccion);
+                cmdReserva.Parameters.AddWithValue("@ingreso", DatosReserva.Fecha_ingreso.Date);
+                cmdReserva.Parameters.AddWithValue("@salida", DatosReserva.Fecha_salida.Date);
+                cmdReserva.Parameters.AddWithValue("@numPer", DatosReserva.Numero_personas);
+                cmdReserva.Parameters.AddWithValue("@tipo", DatosReserva.Tipo);
+                cmdReserva.Parameters.AddWithValue("@idHuesped", DatosReserva.Id_huesped);
+                cmdReserva.Parameters.AddWithValue("@idAloj", DatosReserva.Id_alojamiento);
 
-                comandoSql.ExecuteNonQuery();
+                int idReservaGenerado = Convert.ToInt32(cmdReserva.ExecuteScalar());
+
+                // 2. Insertar Factura vinculada al ID anterior
+                string queryFactura = @"INSERT INTO Factura (Id_reserva, dias_ocupacion, subtotal, impuestos, total) 
+                                VALUES (@idRes, @dias, @subtotal, @impuestos, @total)";
+
+                SqlCommand cmdFactura = new SqlCommand(queryFactura, objConectar.conectar, transaccion);
+                cmdFactura.Parameters.AddWithValue("@idRes", idReservaGenerado);
+                cmdFactura.Parameters.AddWithValue("@dias", DatosFactura.Dias_ocupacion);
+                cmdFactura.Parameters.AddWithValue("@subtotal", DatosFactura.Subtotal);
+                cmdFactura.Parameters.AddWithValue("@impuestos", DatosFactura.Impuestos);
+                cmdFactura.Parameters.AddWithValue("@total", DatosFactura.Total);
+
+                cmdFactura.ExecuteNonQuery();
+
+                transaccion.Commit();
             }
             catch (Exception ex)
             {
-                // Esto es vital para saber POR QUÉ falló (ej. Llave foránea, nulos, etc.)
-                throw new Exception("Error en SQL al insertar: " + ex.Message);
+                if (transaccion != null) transaccion.Rollback();
+                throw new Exception("Error al procesar la transacción de reserva: " + ex.Message);
             }
             finally
             {
                 objConectar.Cerrar();
             }
         }
-        // Método para consultar reservas filtrando por la Cédula del huésped
+
         public DataTable ConsultarReservasPorCedula(string cedula)
         {
             DataTable dtReservas = new DataTable();
             try
             {
                 objConectar.Abrir();
-                // Usamos INNER JOIN para traer datos legibles en lugar de solo IDs
                 string query = @"SELECT 
                                     r.Id_reserva AS [ID Reserva],
                                     h.nombres + ' ' + h.apellidos AS [Huésped],
@@ -65,7 +80,6 @@ namespace Capa_Datos
                 SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
                 comandoSql.Parameters.AddWithValue("@cedula", cedula);
 
-                // Llenamos la tabla de datos con el resultado de la consulta
                 SqlDataAdapter adaptador = new SqlDataAdapter(comandoSql);
                 adaptador.Fill(dtReservas);
             }
@@ -75,7 +89,7 @@ namespace Capa_Datos
             }
             return dtReservas;
         }
-        // Método para buscar una reserva específica por ID y traer la cédula del huésped
+
         public DataTable BuscarReservaPorId(int id)
         {
             DataTable dt = new DataTable();
@@ -119,7 +133,7 @@ namespace Capa_Datos
                 objConectar.Cerrar();
             }
         }
-        // Método para listar todas las reservas de forma legible para el ListBox
+
         public DataTable ConsultarTodasLasReservas()
         {
             DataTable dt = new DataTable();
@@ -141,7 +155,6 @@ namespace Capa_Datos
             return dt;
         }
 
-        // Método para eliminar la reserva físicamente
         public void EliminarReserva(int id)
         {
             try

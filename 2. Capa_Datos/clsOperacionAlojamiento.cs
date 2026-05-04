@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Capa_Entidades;
 
+
 namespace Capa_Datos
 {
     public class clsOperacionAlojamiento
     {
         clsConexion objConectar = new clsConexion();
 
-        // Buscar el ID del administrador usando su teléfono
         public int ObtenerIdAdminPorTelefono(string telefono)
         {
             int idAdmin = 0;
@@ -37,8 +37,9 @@ namespace Capa_Datos
             try
             {
                 objConectar.Abrir();
-                string query = "INSERT INTO Alojamiento (descripcion, ubicacion, max_huespedes, num_habitaciones, num_banos, Id_administrador) " +
-                               "VALUES (@desc, @ubi, @maxH, @numHab, @numBan, @idAdmin)";
+                // SE AÑADIÓ: precio_por_noche
+                string query = "INSERT INTO Alojamiento (descripcion, ubicacion, max_huespedes, num_habitaciones, num_banos, Id_administrador, precio_por_noche) " +
+                               "VALUES (@desc, @ubi, @maxH, @numHab, @numBan, @idAdmin, @precio)";
                 SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
 
                 comandoSql.Parameters.AddWithValue("@desc", DatosI.Descripcion);
@@ -47,6 +48,7 @@ namespace Capa_Datos
                 comandoSql.Parameters.AddWithValue("@numHab", DatosI.Num_habitaciones);
                 comandoSql.Parameters.AddWithValue("@numBan", DatosI.Num_banos);
                 comandoSql.Parameters.AddWithValue("@idAdmin", DatosI.Id_administrador);
+                comandoSql.Parameters.AddWithValue("@precio", DatosI.Precio_por_noche);
 
                 comandoSql.ExecuteNonQuery();
             }
@@ -55,7 +57,7 @@ namespace Capa_Datos
                 objConectar.Cerrar();
             }
         }
-        // Método para buscar alojamientos por capacidad de huéspedes
+
         public List<clsAlojamiento> BuscarAlojamientosPorHuespedes(int cantidad)
         {
             List<clsAlojamiento> lista = new List<clsAlojamiento>();
@@ -64,7 +66,6 @@ namespace Capa_Datos
                 objConectar.Abrir();
                 string query;
 
-                // Si la cantidad es 0 (caja vacía), mostramos todos. Si no, filtramos.
                 if (cantidad == 0)
                 {
                     query = "SELECT * FROM Alojamiento";
@@ -93,7 +94,8 @@ namespace Capa_Datos
                         Max_huespedes = Convert.ToInt32(leerDatos["max_huespedes"]),
                         Num_habitaciones = Convert.ToInt32(leerDatos["num_habitaciones"]),
                         Num_banos = Convert.ToInt32(leerDatos["num_banos"]),
-                        Id_administrador = Convert.ToInt32(leerDatos["Id_administrador"])
+                        Id_administrador = Convert.ToInt32(leerDatos["Id_administrador"]),
+                        Precio_por_noche = Convert.ToDecimal(leerDatos["precio_por_noche"]) // SE AÑADIÓ LA LECTURA
                     });
                 }
             }
@@ -103,7 +105,7 @@ namespace Capa_Datos
             }
             return lista;
         }
-        // Método para buscar un alojamiento específico por su ID
+
         public clsAlojamiento BuscarAlojamiento(int idBuscar)
         {
             try
@@ -119,7 +121,12 @@ namespace Capa_Datos
                     {
                         Id_alojamiento = Convert.ToInt32(leerDatos["Id_alojamiento"]),
                         Descripcion = Convert.ToString(leerDatos["descripcion"]),
-                        Ubicacion = Convert.ToString(leerDatos["ubicacion"])
+                        Ubicacion = Convert.ToString(leerDatos["ubicacion"]),
+                        Max_huespedes = Convert.ToInt32(leerDatos["max_huespedes"]),
+                        Num_habitaciones = Convert.ToInt32(leerDatos["num_habitaciones"]),
+                        Num_banos = Convert.ToInt32(leerDatos["num_banos"]),
+                        Id_administrador = Convert.ToInt32(leerDatos["Id_administrador"]),
+                        Precio_por_noche = Convert.ToDecimal(leerDatos["precio_por_noche"]) // VITAL PARA LA FACTURA
                     };
                 }
                 return null;
@@ -134,7 +141,6 @@ namespace Capa_Datos
             }
         }
 
-        // Método para eliminar de la base de datos
         public void EliminarAlojamiento(int idEliminar)
         {
             try
@@ -149,16 +155,17 @@ namespace Capa_Datos
                 objConectar.Cerrar();
             }
         }
-        // Método para actualizar los datos del alojamiento
+
         public void ActualizarAlojamiento(clsAlojamiento DatosI)
         {
             try
             {
                 objConectar.Abrir();
+                // SE AÑADIÓ: precio_por_noche
                 string query = "UPDATE Alojamiento SET descripcion=@desc, ubicacion=@ubi, max_huespedes=@maxH, " +
-                               "num_habitaciones=@numHab, num_banos=@numBan, Id_administrador=@idAdmin " +
+                               "num_habitaciones=@numHab, num_banos=@numBan, Id_administrador=@idAdmin, precio_por_noche=@precio " +
                                "WHERE Id_alojamiento=@id";
-                
+
                 SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
                 comandoSql.Parameters.AddWithValue("@id", DatosI.Id_alojamiento);
                 comandoSql.Parameters.AddWithValue("@desc", DatosI.Descripcion);
@@ -167,7 +174,8 @@ namespace Capa_Datos
                 comandoSql.Parameters.AddWithValue("@numHab", DatosI.Num_habitaciones);
                 comandoSql.Parameters.AddWithValue("@numBan", DatosI.Num_banos);
                 comandoSql.Parameters.AddWithValue("@idAdmin", DatosI.Id_administrador);
-                
+                comandoSql.Parameters.AddWithValue("@precio", DatosI.Precio_por_noche);
+
                 comandoSql.ExecuteNonQuery();
             }
             finally
@@ -176,7 +184,6 @@ namespace Capa_Datos
             }
         }
 
-        // Método para obtener el teléfono del administrador sabiendo su ID (para mostrarlo en pantalla)
         public string ObtenerTelefonoAdminPorId(int idAdmin)
         {
             string telefono = "";
@@ -185,7 +192,7 @@ namespace Capa_Datos
                 objConectar.Abrir();
                 SqlCommand comandoSql = new SqlCommand("SELECT telefono FROM Administrador WHERE Id_administrador = @id", objConectar.conectar);
                 comandoSql.Parameters.AddWithValue("@id", idAdmin);
-                
+
                 object resultado = comandoSql.ExecuteScalar();
                 if (resultado != null)
                 {

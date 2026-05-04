@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="clsAdministrador.cs" />
     <Compile Include="clsAlojamiento.cs" />
+    <Compile Include="clsFactura.cs" />
     <Compile Include="clsHuesped.cs" />
     <Compile Include="clsReserva.cs" />
     <Compile Include="clsSesion.cs" />

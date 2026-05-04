@@ -15,5 +15,6 @@ namespace Capa_Entidades
         public int Num_habitaciones { get; set; }
         public int Num_banos { get; set; }
         public int Id_administrador { get; set; } 
+        public decimal Precio_por_noche { get; set; }
     }
 }

@@ -9,103 +9,44 @@ namespace Capa_Logica
     {
         clsOperacionReserva objOperacion = new clsOperacionReserva();
 
-        public void IngresarReserva(clsReserva DatosI)
+        // Método de inserción transaccional
+        public void IngresarReservaConFactura(clsReserva datosReserva, clsFactura datosFactura)
         {
-            // CORRECCIÓN 1: Validaciones de negocio AQUÍ, antes de tocar la BD
-            if (DatosI == null)
-                throw new ArgumentNullException("DatosI", "Los datos de la reserva no pueden ser nulos.");
-
-            if (DatosI.Fecha_salida.Date <= DatosI.Fecha_ingreso.Date)
-                throw new ArgumentException("La fecha de salida debe ser posterior a la de ingreso.");
-
-            if (DatosI.Numero_personas <= 0)
-                throw new ArgumentException("El número de personas debe ser mayor a cero.");
-
-            if (DatosI.Id_huesped <= 0)
-                throw new ArgumentException("El huésped no es válido.");
-
-            if (DatosI.Id_alojamiento <= 0)
-                throw new ArgumentException("El alojamiento no es válido.");
-
-            try
-            {
-                objOperacion.IngresarReserva(DatosI);
-            }
-            catch (Exception ex)
-            {
-                // CORRECCIÓN 2: Relanzar con contexto claro para la UI
-                throw new Exception("No se pudo registrar la reserva: " + ex.Message, ex);
-            }
+            objOperacion.IngresarReservaConFactura(datosReserva, datosFactura);
         }
 
-        public DataTable ConsultarReservasPorCedula(string cedula)
+        // Motor de cálculo para la UI y el guardado
+        public decimal[] CalcularValoresFactura(DateTime entrada, DateTime salida, decimal precioNoche)
         {
-            if (string.IsNullOrWhiteSpace(cedula))
-                throw new ArgumentException("La cédula no puede estar vacía.");
-            try
-            {
-                return objOperacion.ConsultarReservasPorCedula(cedula);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al consultar reservas por cédula: " + ex.Message, ex);
-            }
+            int dias = (salida.Date - entrada.Date).Days;
+            if (dias <= 0) dias = 1;
+
+            decimal subtotal = dias * precioNoche;
+            decimal impuestos = subtotal * 0.15m; // IVA 15%
+            decimal total = subtotal + impuestos;
+
+            return new decimal[] { dias, subtotal, impuestos, total };
         }
 
-        public DataTable BuscarReservaPorId(int id)
-        {
-            try
-            {
-                return objOperacion.BuscarReservaPorId(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al buscar la reserva: " + ex.Message, ex);
-            }
-        }
 
+        // Soluciona el error en frmActualizarReserva.cs
         public void ActualizarReserva(clsReserva Datos)
         {
-            if (Datos == null)
-                throw new ArgumentNullException("Datos", "Los datos no pueden ser nulos.");
-
-            if (Datos.Id_reserva <= 0)
-                throw new ArgumentException("El ID de reserva no es válido para actualizar.");
-
-            try
-            {
-                objOperacion.ActualizarReserva(Datos);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("No se pudo actualizar la reserva: " + ex.Message, ex);
-            }
+            objOperacion.ActualizarReserva(Datos);
         }
 
-        public DataTable ConsultarTodasLasReservas()
+        // Soluciona el error en frmConsultarReserva.cs
+        public DataTable ConsultarReservasPorCedula(string cedula)
         {
-            try
-            {
-                return objOperacion.ConsultarTodasLasReservas();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error al consultar reservas: " + ex.Message, ex);
-            }
+            return objOperacion.ConsultarReservasPorCedula(cedula);
         }
 
-        public void EliminarReserva(int id)
-        {
-            if (id <= 0)
-                throw new ArgumentException("El ID de reserva no es válido para eliminar.");
-            try
-            {
-                objOperacion.EliminarReserva(id);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("No se pudo eliminar la reserva: " + ex.Message, ex);
-            }
-        }
+        // --- MÉTODOS DE CONSULTA Y ELIMINACIÓN ---
+
+        public DataTable ConsultarTodasLasReservas() => objOperacion.ConsultarTodasLasReservas();
+
+        public DataTable BuscarReservaPorId(int id) => objOperacion.BuscarReservaPorId(id);
+
+        public void EliminarReserva(int id) => objOperacion.EliminarReserva(id);
     }
 }

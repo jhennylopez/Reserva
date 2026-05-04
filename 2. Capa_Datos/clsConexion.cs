@@ -9,7 +9,7 @@ namespace Capa_Datos
 {
     public class clsConexion
     {
-        string cadena = "Data Source=LENOVO-LEGION-5\\SQLEXPRESS; Initial Catalog=SistemaReservasBD; Integrated Security=True; TrustServerCertificate=True;";
+        string cadena = "Data Source=localhost; Initial Catalog=SistemaReservasBD; Integrated Security=True; TrustServerCertificate=True;";
         public SqlConnection conectar = new SqlConnection();
 
         public clsConexion()
