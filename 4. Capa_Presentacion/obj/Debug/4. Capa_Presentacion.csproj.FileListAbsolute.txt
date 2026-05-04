@@ -1,0 +1,60 @@
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.exe.config
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.exe
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_1.Capa_Entidades.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_3.Capa_Lógica.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_2.Capa_Datos.dll
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_1.Capa_Entidades.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_3.Capa_Lógica.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\bin\Debug\_2.Capa_Datos.pdb
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.AssemblyReference.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.Form1.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarAlojamiento.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarHuesped.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarReserva.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmBuscarAlojamiento.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmBuscarHuesped.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmCancelarReserva.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmConsultarReserva.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmEliminarAlojamiento.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmEliminarHuesped.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmLogin.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmNuevaReserva.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmRegistrarAlojamiento.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmRegistrarHuesped.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.Properties.Resources.resources
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.GenerateResource.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.CoreCompileInputs.cache
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\4. Capa_.05E17D74.Up2Date
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.exe
+C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.pdb
+D:\Reserva\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.AssemblyReference.cache
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.exe
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.pdb
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.exe.config
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.exe
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_4.Capa_Presentacion.pdb
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_1.Capa_Entidades.dll
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_3.Capa_Lógica.dll
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_2.Capa_Datos.dll
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_1.Capa_Entidades.pdb
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_3.Capa_Lógica.pdb
+D:\Reserva\4. Capa_Presentacion\bin\Debug\_2.Capa_Datos.pdb
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.Form1.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarAlojamiento.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarHuesped.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmActualizarReserva.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmBuscarAlojamiento.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmBuscarHuesped.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmCancelarReserva.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmConsultarReserva.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmEliminarAlojamiento.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmEliminarHuesped.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmLogin.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmNuevaReserva.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmRegistrarAlojamiento.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.frmRegistrarHuesped.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\_4.Capa_Presentacion.Properties.Resources.resources
+D:\Reserva\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.GenerateResource.cache
+D:\Reserva\4. Capa_Presentacion\obj\Debug\4. Capa_Presentacion.csproj.CoreCompileInputs.cache
+D:\Reserva\4. Capa_Presentacion\obj\Debug\4. Capa_.05E17D74.Up2Date

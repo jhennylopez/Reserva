@@ -20,20 +20,24 @@ namespace _4.Capa_Presentacion
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) || string.IsNullOrWhiteSpace(textBox2.Text))
             {
-                MessageBox.Show("Por favor, complete todos los campos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, complete todos los campos.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             clsPuenteLogin puente = new clsPuenteLogin();
+
             if (puente.Ingresar(textBox1.Text, textBox2.Text))
             {
-                // Si el login es exitoso, cerramos este form con OK para avisar a Form1
+                // === LA MAGIA ESTÁ AQUÍ ===
+                // 1. Le decimos a Program.cs que todo salió bien (DialogResult.OK)
                 this.DialogResult = DialogResult.OK;
+
+                // 2. CERRAMOS y destruimos el Login por completo (Ya no usamos Hide)
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Credenciales incorrectas. Verifique su correo y contraseña.", "Error de Acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Credenciales incorrectas.", "RommyEc | Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBox2.Clear();
                 textBox2.Focus();
             }

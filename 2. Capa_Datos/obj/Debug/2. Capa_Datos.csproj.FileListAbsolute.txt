@@ -7,3 +7,12 @@ C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\ob
 C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\2. Capa_.0CC673B3.Up2Date
 C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\_2.Capa_Datos.dll
 C:\Users\Eliza López\Documents\SistemaReservas\SistemaReservas\2. Capa_Datos\obj\Debug\_2.Capa_Datos.pdb
+D:\Reserva\2. Capa_Datos\bin\Debug\_2.Capa_Datos.dll
+D:\Reserva\2. Capa_Datos\bin\Debug\_2.Capa_Datos.pdb
+D:\Reserva\2. Capa_Datos\bin\Debug\_1.Capa_Entidades.dll
+D:\Reserva\2. Capa_Datos\bin\Debug\_1.Capa_Entidades.pdb
+D:\Reserva\2. Capa_Datos\obj\Debug\2. Capa_Datos.csproj.AssemblyReference.cache
+D:\Reserva\2. Capa_Datos\obj\Debug\2. Capa_Datos.csproj.CoreCompileInputs.cache
+D:\Reserva\2. Capa_Datos\obj\Debug\2. Capa_.0CC673B3.Up2Date
+D:\Reserva\2. Capa_Datos\obj\Debug\_2.Capa_Datos.dll
+D:\Reserva\2. Capa_Datos\obj\Debug\_2.Capa_Datos.pdb

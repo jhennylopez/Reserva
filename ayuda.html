@@ -1,0 +1,251 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=es-419 style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal align=center style='text-align:center'><b>MANUAL DE USUARIO:
+SISTEMA DE GESTIÓN DE RESERVAS RommyEC</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Este manual proporciona las
+instrucciones necesarias para operar el sistema desarrollado por Luis Franklin
+Salazar Poma. El software utiliza una arquitectura de 4 capas para garantizar
+la integridad de los datos y una experiencia de usuario fluida.</p>
+
+<p class=MsoNormal style='text-align:justify'><b>1. Inicio de Sesión y
+Seguridad</b></p>
+
+<p class=MsoNormal style='text-align:justify'>El sistema cuenta con un control
+de acceso dual para proteger la información y delimitar funciones.</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='text-align:justify'>Identificación: Ingrese su
+     correo electrónico institucional o personal registrado y su contraseña
+     secreta.</li>
+ <li class=MsoNormal style='text-align:justify'>Roles de Usuario:</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal style='text-align:justify'>Administrador: Tiene control
+      total sobre los catálogos de huéspedes, alojamientos y la gestión de
+      todas las reservas.</li>
+  <li class=MsoNormal style='text-align:justify'>Huésped: Perfil restringido
+      que solo permite visualizar disponibilidad y gestionar sus propias
+      reservaciones.</li>
+ </ul>
+ <li class=MsoNormal style='text-align:justify'>Cierre de Sesión: Siempre
+     utilice la opción Archivo &gt; Cerrar Sesión para asegurar que sus datos
+     no queden expuestos en terminales públicas.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'><b>
+
+<hr size=2 width="100%" align=center>
+
+</b></div>
+
+<p class=MsoNormal style='text-align:justify'><b>2. Gestión de Huéspedes
+(Módulo Administrativo)</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Este módulo permite mantener
+actualizada la base de datos de clientes que harán uso de los servicios.</p>
+
+<p class=MsoNormal style='text-align:justify'>2.1 Registro de Nuevos Huéspedes</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Diríjase a Huésped &gt;
+     Registrar.</li>
+ <li class=MsoNormal style='text-align:justify'>Cédula: Ingrese los 10 dígitos
+     obligatorios (el sistema validará automáticamente que no existan letras).</li>
+ <li class=MsoNormal style='text-align:justify'>Datos Personales: Complete
+     nombres, apellidos, correo y teléfono.</li>
+ <li class=MsoNormal style='text-align:justify'>Presione Guardar. El sistema le
+     confirmará si el registro fue exitoso.</li>
+</ol>
+
+<p class=MsoNormal style='text-align:justify'><b>2.2 Búsqueda y Actualización</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Si un cliente cambia de teléfono
+o correo, utilice Huésped &gt; Actualizar. Deberá ingresar la cédula para
+cargar los datos actuales, realizar el cambio y presionar Actualizar.</p>
+
+<div class=MsoNormal align=center style='text-align:center'><b>
+
+<hr size=2 width="100%" align=center>
+
+</b></div>
+
+<p class=MsoNormal style='text-align:justify'><b>3. Catálogo de Alojamientos</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Aquí se administran las
+propiedades, habitaciones o espacios disponibles para reserva.</p>
+
+<ul style='margin-top:0cm' type=disc>
+ <li class=MsoNormal style='text-align:justify'>Capacidad Máxima: Es el dato
+     más crítico. El sistema impedirá realizar reservas que superen este número
+     de personas para evitar sobrecupos.</li>
+ <li class=MsoNormal style='text-align:justify'>Ubicación y Descripción:
+     Proporcione detalles claros (ej. &quot;Cabaña rústica con vista al
+     volcán&quot;) para facilitar la elección del cliente.</li>
+</ul>
+
+<div class=MsoNormal align=center style='text-align:center'><b>
+
+<hr size=2 width="100%" align=center>
+
+</b></div>
+
+<p class=MsoNormal style='text-align:justify'><b>4. Proceso de Reservaciones</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Es el corazón del sistema y donde
+ocurre la validación lógica más importante.</p>
+
+<p class=MsoNormal style='text-align:justify'>4.1 Cómo realizar una Nueva
+Reserva</p>
+
+<ol style='margin-top:0cm' start=1 type=1>
+ <li class=MsoNormal style='text-align:justify'>Seleccione Reservas &gt; Nueva
+     Reserva.</li>
+ <li class=MsoNormal style='text-align:justify'>Alojamiento: Elija el ID del
+     alojamiento disponible. El sistema mostrará la capacidad máxima.</li>
+ <li class=MsoNormal style='text-align:justify'>Fechas: Utilice los calendarios
+     para marcar la Fecha de Entrada y Fecha de Salida.</li>
+ <ul style='margin-top:0cm' type=circle>
+  <li class=MsoNormal style='text-align:justify'><i>Nota: El sistema no permite
+      que la fecha de salida sea anterior a la de entrada.</i></li>
+ </ul>
+ <li class=MsoNormal style='text-align:justify'>Cantidad de Personas: Ingrese
+     cuántos huéspedes ocuparán el lugar. Si el número supera la capacidad del
+     alojamiento, el sistema emitirá una alerta y bloqueará el registro.</li>
+ <li class=MsoNormal style='text-align:justify'>Confirmar: Presione Registrar.</li>
+</ol>
+
+<p class=MsoNormal style='text-align:justify'><b>4.2 Cancelación de Reservas</b></p>
+
+<p class=MsoNormal style='text-align:justify'>En caso de que un cliente
+desista, ingrese a Reservas &gt; Cancelar. Seleccione el ID de la reserva de la
+lista inferior y presione Eliminar. Se le pedirá una confirmación final para
+evitar pérdidas accidentales de datos.</p>
+
+<div class=MsoNormal align=center style='text-align:center'><b>
+
+<hr size=2 width="100%" align=center>
+
+</b></div>
+
+<p class=MsoNormal style='text-align:justify'><b>5. Solución de Problemas (FAQ)</b></p>
+
+<table class=MsoNormalTable border=0 cellspacing=3 cellpadding=0>
+ <thead>
+  <tr>
+   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+   <p class=MsoNormal style='text-align:justify'>Problema</p>
+   </td>
+   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+   <p class=MsoNormal style='text-align:justify'>Causa Probable</p>
+   </td>
+   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+   <p class=MsoNormal style='text-align:justify'>Solución</p>
+   </td>
+  </tr>
+ </thead>
+ <tr>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>Error &quot;CS1061&quot; al
+  compilar</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>Desconexión entre el diseño y
+  el código.</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>El desarrollador debe limpiar
+  las referencias en el archivo .Designer.cs.</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>El botón Buscar no responde</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>El evento no está enlazado en
+  el Inspector de Propiedades.</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>Verifique que el evento Click
+  apunte al método correcto.</p>
+  </td>
+ </tr>
+ <tr>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>No puedo registrar más personas</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>Se ha superado el límite físico
+  del alojamiento.</p>
+  </td>
+  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
+  <p class=MsoNormal style='text-align:justify'>Seleccione un alojamiento con
+  mayor capacidad o divida la reserva en dos habitaciones.</p>
+  </td>
+ </tr>
+</table>
+
+<div class=MsoNormal align=center style='text-align:center'><b>
+
+<hr size=2 width="100%" align=center>
+
+</b></div>
+
+<p class=MsoNormal style='text-align:justify'><b>6. Soporte Técnico</b></p>
+
+<p class=MsoNormal style='text-align:justify'>Para reportar fallas técnicas en
+la base de datos SQL Server o errores de desbordamiento de datos, contacte al
+administrador del sistema o al departamento de desarrollo asociado a la ESPOCH.</p>
+
+<p class=MsoNormal style='text-align:justify'><b>&nbsp;</b></p>
+
+</div>
+
+</body>
+
+</html>

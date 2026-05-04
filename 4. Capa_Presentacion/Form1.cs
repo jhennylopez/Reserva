@@ -24,17 +24,10 @@ namespace _4.Capa_Presentacion
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Llamar al login antes de mostrar el menú principal
-            frmLogin login = new frmLogin();
-            if (login.ShowDialog() == DialogResult.OK)
-            {
-                this.Text = $"Sistema de Reservas - Bienvenido {clsSesion.Nombre} ({clsSesion.Rol})";
-                ConfigurarPermisos();
-            }
-            else
-            {
-                Application.Exit(); // Si cancela el login, cierra todo
-            }
+            // El Login ya llenó los datos de clsSesion, así que Form1 los usa aquí
+            this.Text = $"Sistema de Reservas - Bienvenido {clsSesion.Nombre} ({clsSesion.Rol})";
+            ConfigurarPermisos();
+           
         }
         private void ConfigurarPermisos()
         {
@@ -151,27 +144,55 @@ namespace _4.Capa_Presentacion
         private void cerrarSesiónToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult resultado = MessageBox.Show("¿Está seguro que desea cerrar la sesión actual?",
-                "Cerrar Sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    "RommyEc | Cerrar Sesión", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
             {
+                // 1. Cerramos ordenadamente las sub-pantallas que estén abiertas
                 foreach (Form frm in this.MdiChildren)
                 {
                     frm.Close();
                 }
 
-                MessageBox.Show("Sesión cerrada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // 2. Limpiamos las credenciales de la memoria por seguridad
+                clsSesion.Nombre = "";
+                clsSesion.Rol = "";
+
+                // 3. Reiniciamos la aplicación entera. 
+                // Esto apagará Form1 y volverá a ejecutar Program.cs (abriendo frmLogin)
+                Application.Restart();
             }
         }
-
+        //Ayuda y Acerca de
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Sistema de Gestión de Reservas v1.0\n\n" +
-                "Desarrollado por: GRUPO 2\n" +
-                "Institución: ESPOCH\n" +
-                "Año: 2026", "Acerca del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+            string rutaAyuda = System.IO.Path.Combine(Application.StartupPath, "ayuda.html");
 
+            try
+            {
+                if (System.IO.File.Exists(rutaAyuda))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = rutaAyuda,
+                        UseShellExecute = true // Necesario para abrir el navegador
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el manual de usuario en: " + rutaAyuda,
+                                    "Archivo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir la ayuda: " + ex.Message);
+            }
+        }
+        private void acercaDeToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            
+        }
         private void registrarAlojamientoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmRegistrarAlojamiento frmRegistrar = new frmRegistrarAlojamiento();
@@ -204,6 +225,52 @@ namespace _4.Capa_Presentacion
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Para evitar problemas de rutas relativas, se puede usar una ruta absoluta o colocar el archivo en el mismo directorio que el ejecutable.
+            string rutaAyuda = "D:\\Reserva\\ayuda.html";
+
+            try
+            {
+                if (System.IO.File.Exists(rutaAyuda))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = rutaAyuda,
+                        UseShellExecute = true // Necesario para abrir el navegador
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("No se encontró el manual de usuario en: " + rutaAyuda, "Archivo Faltante", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al abrir la ayuda: " + ex.Message);
+            }
+        }
+
+        private void acercaDeToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            string mensaje = "ESCUELA SUPERIOR POLITÉCNICA DE CHIMBORAZO\n" +
+            "Facultad de Informática y Electrónica\n" +
+            "Asignatura: Aplicaciones Informáticas I\n\n" +
+            "PROYECTO: SISTEMA DE RESERVAS MULTICAPA\n" +
+            "INTEGRANTES:\n\n" +
+            "• ABAD ROMERO ANTHONY PAUL\n" +
+            "• CRUZ CHALAN LUIS ALEJANDRO \n" +
+            "• LOPEZ ZAMBRANO JHENNY ELIZABETH\n" +
+            "• CRISTOFFER ALEXANDER NUÑEZ CAISAPANTA\n" +
+            "• ROMERO GAVINO DOMENICA VIVIANA\n" +
+            "• RONQUILLO ARMAS ALVIN MARTIN \n" +
+            "• SALAZAR TIXE LUIS FERNANDO\n\n" +
+
+            "Riobamba, Ecuador - Mayo 2026";
+
+            MessageBox.Show(mensaje, "RommyEc",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
     }
 }
