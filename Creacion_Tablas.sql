@@ -1,11 +1,11 @@
--- 1. Crear la base de datos (Opcional, si no la has creado aún)
+-- 1. Crear la base de datos
 CREATE DATABASE SistemaReservasBD;
 GO
 
 USE SistemaReservasBD;
 GO
 
--- 1. Crear tabla ADMINISTRADOR
+-- 2. Crear tabla ADMINISTRADOR
 CREATE TABLE Administrador (
     Id_administrador INT IDENTITY(1,1) PRIMARY KEY,
     Ci VARCHAR(10) UNIQUE NOT NULL,
@@ -18,8 +18,9 @@ CREATE TABLE Administrador (
 
     CONSTRAINT CHK_Admin_CI CHECK (LEN(CI) = 10 AND CI NOT LIKE '%[^0-9]%')
 );
+GO
 
--- 2. Crear tabla HUESPED
+-- 3. Crear tabla HUESPED
 CREATE TABLE Huesped (
     Id_huesped INT IDENTITY(1,1) PRIMARY KEY,
     Ci VARCHAR(10) UNIQUE NOT NULL,
@@ -31,8 +32,9 @@ CREATE TABLE Huesped (
 
     CONSTRAINT CHK_Huesped_CI CHECK (LEN(CI) = 10 AND CI NOT LIKE '%[^0-9]%')
 );
+GO
 
--- 3. Crear tabla ALOJAMIENTO (Con Cascada desde Administrador)
+-- 4. Crear tabla ALOJAMIENTO (Con Cascada desde Administrador)
 CREATE TABLE Alojamiento (
     Id_alojamiento INT IDENTITY(1,1) PRIMARY KEY,
     descripcion VARCHAR(500),
@@ -41,11 +43,13 @@ CREATE TABLE Alojamiento (
     num_habitaciones INT NOT NULL,
     num_banos INT NOT NULL,
     Id_administrador INT NOT NULL,
+    precio_por_noche DECIMAL(10, 2) NOT NULL DEFAULT 0.00, -- Coma añadida aquí
     
     -- Al borrar el administrador, se borran sus alojamientos
     CONSTRAINT FK_Alojamiento_Admin FOREIGN KEY (Id_administrador) 
     REFERENCES Administrador(Id_administrador) ON DELETE CASCADE
 );
+GO
 
 -- 5. Crear tabla RESERVA (Con Cascada desde Huesped y Alojamiento)
 CREATE TABLE Reserva (
@@ -70,5 +74,19 @@ CREATE TABLE Reserva (
 );
 GO
 
-
+-- 6. Crear tabla FACTURA (Con Cascada desde Reserva)
+CREATE TABLE Factura (
+    Id_factura INT IDENTITY(1,1) PRIMARY KEY,
+    Id_reserva INT UNIQUE NOT NULL, -- Relación 1 a 1: Una reserva = Una factura
+    fecha_emision DATETIME DEFAULT GETDATE(),
+    dias_ocupacion INT NOT NULL,
+    subtotal DECIMAL(10, 2) NOT NULL,
+    impuestos DECIMAL(10, 2) NOT NULL, 
+    total DECIMAL(10, 2) NOT NULL,
+    
+    -- Si la reserva se cancela/elimina, la factura también desaparece
+    CONSTRAINT FK_Factura_Reserva FOREIGN KEY (Id_reserva) 
+    REFERENCES Reserva(Id_reserva) ON DELETE CASCADE
+);
+GO
 
