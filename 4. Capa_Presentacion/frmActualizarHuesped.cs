@@ -15,7 +15,7 @@ namespace _4.Capa_Presentacion
 {
     public partial class frmActualizarHuesped : Form
     {
-        
+
         // Variable global para almacenar el ID interno del huésped que estamos editando
         private int idHuespedActual = 0;
 
@@ -38,7 +38,7 @@ namespace _4.Capa_Presentacion
             // Habilitamos la cédula y el botón Buscar
             textBox1.Enabled = true;
             textBox1.Clear();
-            button1.Enabled = true; // Botón Buscar
+            button2.Enabled = true; // Botón Buscar
 
             // Deshabilitamos el resto de campos y el botón Actualizar hasta encontrar al huésped
             textBox2.Enabled = false; textBox2.Clear();
@@ -47,7 +47,7 @@ namespace _4.Capa_Presentacion
             textBox5.Enabled = false; textBox5.Clear();
             textBox6.Enabled = false; textBox6.Clear();
 
-            button2.Enabled = false; // Botón Actualizar
+            button1.Enabled = false; // Botón Actualizar
 
             idHuespedActual = 0;
             textBox1.Focus();
@@ -124,14 +124,14 @@ namespace _4.Capa_Presentacion
 
                     // Bloqueamos la búsqueda y habilitamos la edición
                     textBox1.Enabled = false;
-                    button1.Enabled = false; // Desactivar botón buscar
+                    button2.Enabled = false; // Desactivar botón buscar
 
                     textBox2.Enabled = true;
                     textBox3.Enabled = true;
                     textBox4.Enabled = true;
                     textBox5.Enabled = true;
                     textBox6.Enabled = true;
-                    button2.Enabled = true; // Activar botón Actualizar
+                    button1.Enabled = true; // Activar botón Actualizar
 
                     textBox2.Focus();
                 }
@@ -179,7 +179,7 @@ namespace _4.Capa_Presentacion
 
                 clsHuesped objEntidades = new clsHuesped();
                 objEntidades.Id_huesped = idHuespedActual;
-                objEntidades.Ci = textBox1.Text; 
+                objEntidades.Ci = textBox1.Text;
                 objEntidades.Nombres = textBox2.Text;
                 objEntidades.Apellidos = textBox3.Text;
                 objEntidades.Correo = textBox4.Text;
@@ -199,7 +199,7 @@ namespace _4.Capa_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             ProcesarActualizacion();
         }
 

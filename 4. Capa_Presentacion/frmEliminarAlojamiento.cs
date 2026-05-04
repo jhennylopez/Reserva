@@ -20,45 +20,66 @@ namespace _4.Capa_Presentacion
             InitializeComponent();
         }
 
-        // Método para cargar todos los alojamientos en el ListBox para referencia visual
-        private void CargarListaAlojamientos()
+        private void frmEliminarAlojamiento_Load(object sender, EventArgs e)
+        {
+            // Cargamos la lista de alojamientos en el DataGridView al abrir el formulario
+            CargarGridAlojamientos();
+        }
+
+        // --- NUEVO MÉTODO PARA CARGAR EL DATAGRIDVIEW ---
+        private void CargarGridAlojamientos()
         {
             try
             {
-                listBox1.Items.Clear();
                 clsPuenteAlojamiento objPuente = new clsPuenteAlojamiento();
-
-                // Usamos el método que creamos anteriormente (pasando 0 para traer todos)
+                // Traemos todos los alojamientos (pasando 0)
                 List<clsAlojamiento> lista = objPuente.BuscarAlojamientosPorHuespedes(0);
 
-                if (lista.Count == 0)
+                dataGridView1.DataSource = lista;
+
+                // Formato profesional para la tabla
+                if (dataGridView1.Columns.Count > 0)
                 {
-                    listBox1.Items.Add("No hay alojamientos registrados en el sistema.");
-                }
-                else
-                {
-                    foreach (var aloj in lista)
+                    // Ocultamos la llave foránea del administrador por ser dato interno
+                    if (dataGridView1.Columns.Contains("Id_administrador"))
+                        dataGridView1.Columns["Id_administrador"].Visible = false;
+
+                    // Cambiamos los nombres de las cabeceras para el usuario
+                    if (dataGridView1.Columns.Contains("Id_alojamiento"))
                     {
-                        listBox1.Items.Add($"ID: {aloj.Id_alojamiento} | {aloj.Descripcion} - {aloj.Ubicacion}");
+                        dataGridView1.Columns["Id_alojamiento"].HeaderText = "ID";
+                        dataGridView1.Columns["Id_alojamiento"].Width = 40;
                     }
+                    if (dataGridView1.Columns.Contains("Descripcion"))
+                        dataGridView1.Columns["Descripcion"].HeaderText = "Descripción";
+                    if (dataGridView1.Columns.Contains("Ubicacion"))
+                        dataGridView1.Columns["Ubicacion"].HeaderText = "Ubicación";
+                    if (dataGridView1.Columns.Contains("Max_huespedes"))
+                        dataGridView1.Columns["Max_huespedes"].HeaderText = "Cap. Máx.";
+                    if (dataGridView1.Columns.Contains("Num_habitaciones"))
+                        dataGridView1.Columns["Num_habitaciones"].HeaderText = "Habitaciones";
+                    if (dataGridView1.Columns.Contains("Num_banos"))
+                        dataGridView1.Columns["Num_banos"].HeaderText = "Baños";
+
+                    // Ajustes de comportamiento del Grid
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView1.ReadOnly = true;
+                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridView1.MultiSelect = false;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la lista: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar la lista de alojamientos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void frmEliminarAlojamiento_Load(object sender, EventArgs e)
-        {
-            CargarListaAlojamientos();
         }
 
         private void ProcesarEliminacion()
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                MessageBox.Show("Por favor, ingrese el ID del alojamiento que desea eliminar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Por favor, ingrese o seleccione el ID del alojamiento que desea eliminar.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 textBox1.Focus();
                 return;
             }
@@ -89,7 +110,8 @@ namespace _4.Capa_Presentacion
                         MessageBox.Show("Alojamiento eliminado correctamente del sistema.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         textBox1.Clear();
-                        CargarListaAlojamientos(); // Refrescamos el ListBox
+                        // --- ACTUALIZAMOS EL GRID DESPUÉS DE ELIMINAR ---
+                        CargarGridAlojamientos();
                         textBox1.Focus();
                     }
                 }
@@ -102,7 +124,7 @@ namespace _4.Capa_Presentacion
             }
             catch (SqlException ex)
             {
-                // Capturamos el error si el alojamiento tiene reservas activas (Violación de Llave Foránea)
+                // Excelente práctica: Capturamos el error si el alojamiento tiene reservas activas (Violación de Llave Foránea)
                 if (ex.Number == 547)
                 {
                     MessageBox.Show("No se puede eliminar este alojamiento porque tiene reservas asociadas en el sistema. Debe cancelar las reservas primero.", "Acción Denegada", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -121,6 +143,27 @@ namespace _4.Capa_Presentacion
         private void button2_Click(object sender, EventArgs e)
         {
             ProcesarEliminacion();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("¿Está seguro que desea cancelar la operación?", "RommyEc", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        // --- NUEVO EVENTO PARA SELECCIONAR CON UN CLIC ---
+        // (Asegúrate de enlazar este evento en la ventana de propiedades del DataGridView)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Verifica que no se haya hecho clic en la cabecera
+            {
+                // Toma el ID del alojamiento de la fila seleccionada y lo pone en el TextBox
+                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells["Id_alojamiento"].Value.ToString();
+            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

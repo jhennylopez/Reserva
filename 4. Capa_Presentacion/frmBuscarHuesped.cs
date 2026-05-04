@@ -18,42 +18,90 @@ namespace _4.Capa_Presentacion
         {
             InitializeComponent();
             textBox1.MaxLength = 10;
+
+            // Configuración visual profesional para el DataGridView
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.MultiSelect = false;
+        }
+
+        // Te recomiendo llamar a este método en el evento Load de tu formulario
+        // para que al abrir la ventana se vean todos los huéspedes registrados.
+        private void frmBuscarHuesped_Load(object sender, EventArgs e)
+        {
+            CargarDatos();
+        }
+
+        // Modificamos el método para que cargue HUÉSPEDES y acepte un filtro opcional
+        private void CargarDatos(string cedulaFiltro = "")
+        {
+            try
+            {
+                clsPuenteHuesped objPuente = new clsPuenteHuesped();
+                List<clsHuesped> lista = objPuente.ObtenerHuespedes();
+
+                // Si el usuario ingresó una cédula, filtramos la lista
+                if (!string.IsNullOrWhiteSpace(cedulaFiltro))
+                {
+                    lista = lista.Where(h => h.Ci == cedulaFiltro).ToList();
+                }
+
+                // Asignamos la lista a la tabla
+                dataGridView1.DataSource = lista;
+
+                // Formateamos las columnas para Huéspedes
+                if (dataGridView1.Columns.Count > 0)
+                {
+                    // Ocultamos el ID interno y contraseñas por seguridad (si existen)
+                    if (dataGridView1.Columns.Contains("Id_huesped"))
+                        dataGridView1.Columns["Id_huesped"].Visible = false;
+
+                    if (dataGridView1.Columns.Contains("Contrasena"))
+                        dataGridView1.Columns["Contrasena"].Visible = false;
+
+                    // Cambiamos los encabezados
+                    if (dataGridView1.Columns.Contains("Ci"))
+                        dataGridView1.Columns["Ci"].HeaderText = "Cédula";
+
+                    if (dataGridView1.Columns.Contains("Nombres"))
+                        dataGridView1.Columns["Nombres"].HeaderText = "Nombres";
+
+                    if (dataGridView1.Columns.Contains("Apellidos"))
+                        dataGridView1.Columns["Apellidos"].HeaderText = "Apellidos";
+
+                    if (dataGridView1.Columns.Contains("Telefono"))
+                        dataGridView1.Columns["Telefono"].HeaderText = "Teléfono";
+
+                    if (dataGridView1.Columns.Contains("Correo"))
+                        dataGridView1.Columns["Correo"].HeaderText = "Correo Electrónico";
+
+                    // Ajusta el ancho de las columnas automáticamente al espacio disponible
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los huéspedes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ProcesarBusqueda()
         {
+            // Si el campo está vacío, cargamos todos los huéspedes nuevamente
             if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
-                MessageBox.Show("Por favor, ingrese un número de cédula para realizar la búsqueda.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox1.Focus();
+                CargarDatos();
                 return;
             }
 
             try
             {
-                clsPuenteHuesped objPuente = new clsPuenteHuesped();
+                // Llamamos a cargar datos pasándole la cédula buscada
+                CargarDatos(textBox1.Text);
 
-                // Extraemos todos los registros y buscamos la coincidencia exacta con la cédula
-                List<clsHuesped> listaHuespedes = objPuente.ObtenerHuespedes();
-                clsHuesped huespedEncontrado = listaHuespedes.FirstOrDefault(h => h.Ci == textBox1.Text);
-
-                if (huespedEncontrado != null)
-                {
-                    // Mostramos los datos consolidados en un MessageBox informativo
-                    string detallesHuesped = $"¡Huésped encontrado exitosamente!\n\n" +
-                                             $"Cédula: {huespedEncontrado.Ci}\n" +
-                                             $"Nombres: {huespedEncontrado.Nombres}\n" +
-                                             $"Apellidos: {huespedEncontrado.Apellidos}\n" +
-                                             $"Correo Electrónico: {huespedEncontrado.Correo}\n" +
-                                             $"Teléfono: {huespedEncontrado.Telefono}";
-
-                    MessageBox.Show(detallesHuesped, "Resultado de Búsqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    
-                    textBox1.SelectAll();
-                    textBox1.Focus();
-                }
-                else
+                // Verificamos si el DataGridView quedó vacío tras aplicar el filtro
+                if (dataGridView1.Rows.Count == 0)
                 {
                     MessageBox.Show("No se encontró ningún huésped registrado con ese número de cédula en el sistema.", "Búsqueda sin resultados", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     textBox1.SelectAll();
@@ -75,7 +123,12 @@ namespace _4.Capa_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult result = MessageBox.Show("¿Está seguro que desea cancelarla búsqueda?", "RommyEc", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -92,9 +145,6 @@ namespace _4.Capa_Presentacion
                 e.Handled = true;
                 ProcesarBusqueda();
             }
-        }
-        private void frmBuscarHuesped_Load(object sender, EventArgs e)
-        {
         }
     }
 }

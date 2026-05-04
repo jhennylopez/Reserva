@@ -32,7 +32,6 @@ namespace _4.Capa_Presentacion
         {
             comboBox2.Items.AddRange(new string[] { "Completa", "Compartida", "Privada" });
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            textBox3.ReadOnly = true;
             textBox2.ReadOnly = true;
         }
 

@@ -275,5 +275,10 @@ namespace _4.Capa_Presentacion
 
             MessageBox.Show(mensaje, "RommyEc",MessageBoxButtons.OK,MessageBoxIcon.Information);
         }
+
+        private void disponibilidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
