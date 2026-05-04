@@ -34,12 +34,3 @@ INSERT INTO Reserva (fecha_ingreso, fecha_salida, numero_personas, tipo, Id_hues
 VALUES 
 ('2026-07-01', '2026-07-05', 2, 'Privada', 1, 1)  
 
--- ==============================================================================
---  Insertar IMÁGENES DE ALOJAMIENTOS (Dependen de Alojamiento)
--- ==============================================================================
-INSERT INTO Imagen_Alojamiento (ruta_imagen, Id_alojamiento)
-VALUES 
---Insertar la dirección de la ubicación de las imágenes
-GO
-GO
-
