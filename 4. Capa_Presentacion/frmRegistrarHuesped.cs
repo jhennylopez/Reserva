@@ -18,18 +18,24 @@ namespace _4.Capa_Presentacion
         {
             InitializeComponent();
         }
+
         private void frmRegistrarHuesped_Load(object sender, EventArgs e)
         {
             // Establecemos los límites de longitud directamente en código
             textBox1.MaxLength = 10; // Cédula
             textBox6.MaxLength = 10; // Teléfono
-
             // Ocultamos la contraseña
             textBox5.PasswordChar = '*';
+
+            // CONECTAMOS LOS EVENTOS AUTOMÁTICAMENTE
+            // Esto asegura que al "salir" de la casilla, se valide inmediatamente
+            textBox1.Leave += textBox1_Leave;
+            textBox4.Leave += textBox4_Leave;
+            textBox5.Leave += textBox5_Leave;
+            textBox6.Leave += textBox6_Leave;
         }
 
-        // MÉTODOS DE VALIDACIÓN
-
+        // --- MÉTODOS DE VALIDACIÓN BASE ---
         private bool CamposEstanLlenos()
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text) ||
@@ -46,11 +52,9 @@ namespace _4.Capa_Presentacion
 
         private bool ValidarCorreo(string correo)
         {
-            // Validamos que el formato sea texto@texto.texto
             string formato = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(correo, formato);
         }
-        //Validadción de cédula ecuatoriana basada en el algoritmo oficial
         private bool ValidarCedulaEcuatoriana(string cedula)
         {
             if (cedula.Length != 10) return false;
@@ -65,12 +69,12 @@ namespace _4.Capa_Presentacion
             for (int i = 0; i < 9; i++)
             {
                 int digito = int.Parse(cedula.Substring(i, 1));
-                if (i % 2 == 0) 
+                if (i % 2 == 0)
                 {
                     int producto = digito * 2;
                     suma += (producto > 9) ? producto - 9 : producto;
                 }
-                else 
+                else
                 {
                     suma += digito;
                 }
@@ -85,58 +89,90 @@ namespace _4.Capa_Presentacion
             return residuo == digitoVerificador;
         }
 
-        // LÓGICA PRINCIPAL DE GUARDADO
+        // --- EVENTOS DE VALIDACIÓN INMEDIATA (AL SALIR DEL CAMPO) ---
 
+        private void textBox1_Leave(object sender, EventArgs e)
+        {
+            // Solo valida si el campo no está vacío
+            if (!string.IsNullOrWhiteSpace(textBox1.Text))
+            {
+                if (!ValidarCedulaEcuatoriana(textBox1.Text))
+                {
+                    MessageBox.Show("La cédula ingresada no es válida para el territorio ecuatoriano.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox1.Focus(); // Regresa el cursor para obligar a corregir
+                }
+                else
+                {
+                    // Validar duplicados en Base de Datos de forma anticipada
+                    clsPuenteHuesped objPuente = new clsPuenteHuesped();
+                    if (objPuente.ExisteCedulaDuplicada(textBox1.Text))
+                    {
+                        MessageBox.Show("Ya existe un huésped registrado con ese número de cédula.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBox1.SelectAll();
+                        textBox1.Focus();
+                    }
+                }
+            }
+        }
+
+        private void textBox4_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox4.Text))
+            {
+                // 1. Primero validamos que el formato sea correcto (@ .com)
+                if (!ValidarCorreo(textBox4.Text))
+                {
+                    MessageBox.Show("El formato del correo electrónico no es válido.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    textBox4.Focus();
+                }
+                else
+                {
+                    // 2. Si el formato está bien, validamos en la Base de Datos que no esté duplicado
+                    clsPuenteHuesped objPuente = new clsPuenteHuesped();
+                    if (objPuente.ExisteCorreoDuplicado(textBox4.Text))
+                    {
+                        MessageBox.Show("Este correo electrónico ya se encuentra registrado en el sistema. Ingrese uno diferente.", "Correo Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        textBox4.SelectAll();
+                        textBox4.Focus();
+                    }
+                }
+            }
+        }
+
+        private void textBox5_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox5.Text) && textBox5.Text.Length < 4)
+            {
+                MessageBox.Show("La contraseña debe tener al menos 4 caracteres por seguridad.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox5.Focus();
+            }
+        }
+
+        private void textBox6_Leave(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox6.Text) && textBox6.Text.Length < 9)
+            {
+                MessageBox.Show("Ingrese un número de teléfono válido (mínimo 9 dígitos).", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox6.Focus();
+            }
+        }
+
+
+        // --- LÓGICA PRINCIPAL DE GUARDADO ---
         private void ProcesarIngreso()
         {
+            // Como ya validamos cada campo al instante, el botón Guardar solo verifica que no haya casillas en blanco
             if (!CamposEstanLlenos())
             {
-                MessageBox.Show("Todos los campos son obligatorios. Por favor, llénelos todos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!ValidarCedulaEcuatoriana(textBox1.Text))
-            {
-                MessageBox.Show("La cédula ingresada no es válida para el territorio ecuatoriano.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox1.Focus();
-                return;
-            }
-
-            if (textBox6.Text.Length < 9)
-            {
-                MessageBox.Show("Ingrese un número de teléfono válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox6.Focus();
-                return;
-            }
-
-            if (!ValidarCorreo(textBox4.Text))
-            {
-                MessageBox.Show("El formato del correo electrónico no es válido.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox4.Focus();
-                return;
-            }
-
-            if (textBox5.Text.Length < 4)
-            {
-                MessageBox.Show("La contraseña debe tener al menos 4 caracteres por seguridad.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                textBox5.Focus();
+                MessageBox.Show("Todos los campos son obligatorios. Por favor, llénelos todos.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
                 clsPuenteHuesped objPuente = new clsPuenteHuesped();
-
-                // Validar duplicados en Base de Datos
-                if (objPuente.ExisteCedulaDuplicada(textBox1.Text))
-                {
-                    MessageBox.Show("Ya existe un huésped registrado con ese número de cédula.", "Duplicado detectado", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBox1.SelectAll();
-                    textBox1.Focus();
-                    return;
-                }
-
                 clsHuesped objEntidades = new clsHuesped();
+
                 objEntidades.Ci = textBox1.Text;
                 objEntidades.Nombres = textBox2.Text;
                 objEntidades.Apellidos = textBox3.Text;
@@ -146,8 +182,9 @@ namespace _4.Capa_Presentacion
 
                 objPuente.IngresarHuesped(objEntidades);
 
-                MessageBox.Show("Huésped registrado correctamente en el sistema.", "Ingreso Exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Huésped registrado correctamente en el sistema.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                // Limpiar campos
                 textBox1.Clear();
                 textBox2.Clear();
                 textBox3.Clear();
@@ -159,7 +196,50 @@ namespace _4.Capa_Presentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error al ingresar el huésped: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se pudo completar el registro. Por favor, verifique su conexión o asegúrese de que los datos no estén duplicados en el sistema.", "RommyEc", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Error técnico real: " + ex.Message);
+            }
+        }
+
+        // --- NAVEGACIÓN Y FILTROS DE TECLADO ---       
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) e.Handled = true;
+            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox2.Focus(); }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsSeparator(e.KeyChar)) e.Handled = true;
+            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox3.Focus(); }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsSeparator(e.KeyChar)) e.Handled = true;
+            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox6.Focus(); }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsSeparator(e.KeyChar)) e.Handled = true;
+            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox5.Focus(); }
+        }
+
+        private void textBox6_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) e.Handled = true;
+            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox4.Focus(); }
+        }
+
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Corregido el bug de la doble validación del Enter
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+                button1.PerformClick(); // Dispara el guardado
             }
         }
 
@@ -170,55 +250,12 @@ namespace _4.Capa_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
-        }
+            DialogResult result = MessageBox.Show("¿Está seguro que desea cancelar el registro?", "RommyEc", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // CI: Solo números
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) e.Handled = true;
-            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox2.Focus(); }
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Nombres: Solo letras y espacios
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsSeparator(e.KeyChar)) e.Handled = true;
-            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox3.Focus(); }
-        }
-
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Apellidos: Solo letras y espacios
-            if (!char.IsControl(e.KeyChar) && !char.IsLetter(e.KeyChar) && !char.IsSeparator(e.KeyChar)) e.Handled = true;
-            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox4.Focus(); }
-        }
-
-        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Correo: No se permiten espacios en blanco
-            if (char.IsSeparator(e.KeyChar)) e.Handled = true;
-            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox6.Focus(); }
-        }
-
-        private void textBox6_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Teléfono: Solo números
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) e.Handled = true;
-            if (e.KeyChar == (char)Keys.Enter) { e.Handled = true; textBox5.Focus(); }
-        }
-
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Contraseña: Evitamos espacios vacíos al principio o al final
-            if (e.KeyChar == (char)Keys.Enter)
+            if (result == DialogResult.Yes)
             {
-                e.Handled = true;
-                ProcesarIngreso();
+                this.Close();
             }
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e) { }
-        private void textBox7_KeyPress(object sender, KeyPressEventArgs e) { }
     }
 }

@@ -41,5 +41,9 @@ namespace Capa_Logica
         {
             return objOperacion.ExisteCedulaDuplicada(ci, idHuesped);
         }
+        public bool ExisteCorreoDuplicado(string correo, int idHuesped = 0)
+        {
+            return objOperacion.ExisteCorreoDuplicado(correo, idHuesped);
+        }
     }
 }

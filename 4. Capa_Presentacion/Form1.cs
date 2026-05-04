@@ -25,7 +25,7 @@ namespace _4.Capa_Presentacion
         private void Form1_Load(object sender, EventArgs e)
         {
             // El Login ya llenó los datos de clsSesion, así que Form1 los usa aquí
-            this.Text = $"Sistema de Reservas - Bienvenido {clsSesion.Nombre} ({clsSesion.Rol})";
+            this.Text = $"RommyEc - Bienvenido {clsSesion.Nombre} ({clsSesion.Rol})";
             ConfigurarPermisos();
            
         }
@@ -42,12 +42,12 @@ namespace _4.Capa_Presentacion
                 actualizarReservaToolStripMenuItem.Enabled = false;
                 cancelarReservaToolStripMenuItem.Enabled = false;
 
-                MessageBox.Show("Modo Huésped: Acceso limitado a reservaciones.", "Información");
+                MessageBox.Show("Modo Huésped: Acceso limitado a reservaciones.", "RommyEc");
             }
             else
             {
                 // Administrador tiene acceso total (por defecto todos están en true)
-                MessageBox.Show("Modo Administrador: Acceso total habilitado.", "Información");
+                MessageBox.Show("Modo Administrador: Acceso total habilitado.", "RommyEc");
             }
         }
         private void AbrirFormularioHijo(Form formularioHijo)
@@ -73,6 +73,9 @@ namespace _4.Capa_Presentacion
             else
             {
                 formularioHijo.MdiParent = this;
+
+                //formularioHijo.WindowState = FormWindowState.Maximized;
+
                 formularioHijo.Show();
             }
         }

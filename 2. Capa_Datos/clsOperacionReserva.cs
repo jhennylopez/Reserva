@@ -14,19 +14,27 @@ namespace Capa_Datos
             try
             {
                 objConectar.Abrir();
+                // Asegúrate que los nombres de las columnas coincidan exactamente con tu imagen:
+                // Id_reserva, fecha_ingreso, fecha_salida, numero_personas, tipo, Id_huesped, Id_alojamiento
                 string query = "INSERT INTO Reserva (fecha_ingreso, fecha_salida, numero_personas, tipo, Id_huesped, Id_alojamiento) " +
                                "VALUES (@ingreso, @salida, @numPer, @tipo, @idHuesped, @idAloj)";
 
                 SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
 
-                comandoSql.Parameters.AddWithValue("@ingreso", DatosI.Fecha_ingreso);
-                comandoSql.Parameters.AddWithValue("@salida", DatosI.Fecha_salida);
+                // Usamos .Date para evitar conflictos de horas/minutos en SQL
+                comandoSql.Parameters.AddWithValue("@ingreso", DatosI.Fecha_ingreso.Date);
+                comandoSql.Parameters.AddWithValue("@salida", DatosI.Fecha_salida.Date);
                 comandoSql.Parameters.AddWithValue("@numPer", DatosI.Numero_personas);
                 comandoSql.Parameters.AddWithValue("@tipo", DatosI.Tipo);
                 comandoSql.Parameters.AddWithValue("@idHuesped", DatosI.Id_huesped);
                 comandoSql.Parameters.AddWithValue("@idAloj", DatosI.Id_alojamiento);
 
                 comandoSql.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Esto es vital para saber POR QUÉ falló (ej. Llave foránea, nulos, etc.)
+                throw new Exception("Error en SQL al insertar: " + ex.Message);
             }
             finally
             {
@@ -76,7 +84,7 @@ namespace Capa_Datos
                 objConectar.Abrir();
                 string query = @"SELECT r.*, h.ci FROM Reserva r 
                                  INNER JOIN Huesped h ON r.Id_huesped = h.Id_huesped 
-                                 WHERE r.Id_reserva = @id";
+                                 WHERE (@id = 0 OR r.Id_reserva = @id)";
                 SqlCommand cmd = new SqlCommand(query, objConectar.conectar);
                 cmd.Parameters.AddWithValue("@id", id);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);

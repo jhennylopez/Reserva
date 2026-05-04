@@ -161,5 +161,26 @@ namespace Capa_Datos
                 objConectar.Cerrar();
             }
         }
+        public bool ExisteCorreoDuplicado(string correo, int idHuesped = 0)
+        {
+            try
+            {
+                objConectar.Abrir();
+                string query = "SELECT COUNT(*) FROM Huesped WHERE Correo = @correo AND Id_huesped != @id";
+                SqlCommand comandoSql = new SqlCommand(query, objConectar.conectar);
+                comandoSql.Parameters.AddWithValue("@correo", correo);
+                comandoSql.Parameters.AddWithValue("@id", idHuesped);
+                int count = Convert.ToInt32(comandoSql.ExecuteScalar());
+                return count > 0;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                objConectar.Cerrar();
+            }
+        }
     }
 }

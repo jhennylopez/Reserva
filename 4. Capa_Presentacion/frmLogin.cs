@@ -52,10 +52,10 @@ namespace _4.Capa_Presentacion
         {
             if (e.KeyChar == (char)Keys.Enter) button1.PerformClick();
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-
+            frmRegistroClientecs registro = new frmRegistroClientecs();
+            registro.ShowDialog();
         }
     }
 }

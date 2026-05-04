@@ -1,0 +1,12 @@
+# Carpetas de compilación y temporales
+.vs/
+[Bb]in/
+[Oo]bj/
+
+# Paquetes de NuGet
+packages/
+
+# Archivos de usuario y temporales de VS
+*.user
+*.suo
+*.vsidx
