@@ -15,7 +15,7 @@ namespace _4.Capa_Presentacion
 {
     public partial class frmActualizarHuesped : Form
     {
-        
+
         // Variable global para almacenar el ID interno del huésped que estamos editando
         private int idHuespedActual = 0;
 
@@ -179,7 +179,7 @@ namespace _4.Capa_Presentacion
 
                 clsHuesped objEntidades = new clsHuesped();
                 objEntidades.Id_huesped = idHuespedActual;
-                objEntidades.Ci = textBox1.Text; 
+                objEntidades.Ci = textBox1.Text;
                 objEntidades.Nombres = textBox2.Text;
                 objEntidades.Apellidos = textBox3.Text;
                 objEntidades.Correo = textBox4.Text;
@@ -199,7 +199,7 @@ namespace _4.Capa_Presentacion
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             ProcesarActualizacion();
         }
 

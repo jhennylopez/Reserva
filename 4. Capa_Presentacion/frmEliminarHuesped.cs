@@ -19,10 +19,58 @@ namespace _4.Capa_Presentacion
         {
             InitializeComponent();
         }
+
         private void frmEliminarHuesped_Load(object sender, EventArgs e)
         {
             // Limitamos a 10 caracteres exactos de la cédula ecuatoriana
             textBox1.MaxLength = 10;
+
+            // Cargamos la lista de huéspedes en el DataGridView al abrir el formulario
+            CargarGrid();
+        }
+
+        // --- NUEVO MÉTODO PARA CARGAR EL DATAGRIDVIEW ---
+        private void CargarGrid()
+        {
+            try
+            {
+                clsPuenteHuesped objPuente = new clsPuenteHuesped();
+                List<clsHuesped> lista = objPuente.ObtenerHuespedes();
+
+                dataGridView1.DataSource = lista;
+
+                // Formato profesional para la tabla
+                if (dataGridView1.Columns.Count > 0)
+                {
+                    // Ocultamos datos internos o sensibles
+                    if (dataGridView1.Columns.Contains("Id_huesped"))
+                        dataGridView1.Columns["Id_huesped"].Visible = false;
+                    if (dataGridView1.Columns.Contains("Contrasena"))
+                        dataGridView1.Columns["Contrasena"].Visible = false;
+
+                    // Cambiamos los nombres de las cabeceras
+                    if (dataGridView1.Columns.Contains("Ci"))
+                        dataGridView1.Columns["Ci"].HeaderText = "Cédula";
+                    if (dataGridView1.Columns.Contains("Nombres"))
+                        dataGridView1.Columns["Nombres"].HeaderText = "Nombres";
+                    if (dataGridView1.Columns.Contains("Apellidos"))
+                        dataGridView1.Columns["Apellidos"].HeaderText = "Apellidos";
+                    if (dataGridView1.Columns.Contains("Telefono"))
+                        dataGridView1.Columns["Telefono"].HeaderText = "Teléfono";
+                    if (dataGridView1.Columns.Contains("Correo"))
+                        dataGridView1.Columns["Correo"].HeaderText = "Correo";
+
+                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    dataGridView1.ReadOnly = true;
+                    dataGridView1.AllowUserToAddRows = false;
+                    dataGridView1.MultiSelect = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar la lista de huéspedes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ProcesarEliminacion()
@@ -44,7 +92,7 @@ namespace _4.Capa_Presentacion
 
                 if (huespedEncontrado != null)
                 {
-                    //Confirmación de seguridad antes de borrar
+                    // Confirmación de seguridad antes de borrar
                     DialogResult respuesta = MessageBox.Show(
                         $"¿Está seguro que desea eliminar al huésped: {huespedEncontrado.Nombres} {huespedEncontrado.Apellidos}?\n\nEsta acción eliminará su registro de la base de datos.",
                         "Confirmar Eliminación",
@@ -64,6 +112,9 @@ namespace _4.Capa_Presentacion
 
                         textBox1.Clear();
                         textBox1.Focus();
+
+                        // --- ACTUALIZAMOS EL GRID DESPUÉS DE ELIMINAR ---
+                        CargarGrid();
                     }
                 }
                 else
@@ -75,7 +126,7 @@ namespace _4.Capa_Presentacion
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ocurrió un error al eliminar el huésped: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocurrió un error al eliminar el huésped. Verifique que no tenga reservas activas asociadas. Detalles: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBox1.Clear();
                 textBox1.Focus();
             }
@@ -88,7 +139,23 @@ namespace _4.Capa_Presentacion
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult result = MessageBox.Show("¿Está seguro que desea cancelar la operación?", "RommyEc", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        // --- NUEVO EVENTO PARA SELECCIONAR CON UN CLIC ---
+        // (Asegúrate de enlazar este evento en la ventana de propiedades del DataGridView)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Verifica que no se haya hecho clic en la cabecera
+            {
+                // Toma la cédula de la fila seleccionada y la pone en el TextBox
+                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells["Ci"].Value.ToString();
+            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

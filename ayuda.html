@@ -1,251 +1,318 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:8.0pt;
-	margin-left:0cm;
-	line-height:115%;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-.MsoPapDefault
-	{margin-bottom:8.0pt;
-	line-height:115%;}
-@page WordSection1
-	{size:595.3pt 841.9pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
--->
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario - RommyEC</title>
+    
+    <!-- Importando fuente moderna de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Nueva paleta de colores basada en #4F46E5 */
+        :root {
+            --primary: #4F46E5;        /* Ãndigo principal solicitado */
+            --primary-light: #EEF2FF;  /* Ãndigo muy claro para fondos tenues */
+            --primary-dark: #312E81;   /* Ãndigo oscuro para dar profundidad */
+            --secondary: #14B8A6;      /* Turquesa para acentos y contrastes (H2) */
+            --warning-bg: #FFFBEB;     /* Fondo de advertencia */
+            --warning-border: #F59E0B; /* Ãmbar para notas importantes */
+            --text-main: #1F2937;      /* Gris muy oscuro para el texto general */
+            --text-muted: #4B5563;     /* Gris medio para pÃ¡rrafos */
+            --bg-page: #F3F4F6;        /* Gris claro para el fondo de la pÃ¡gina */
+            --bg-card: #FFFFFF;        /* Blanco para las tarjetas */
+            --border: #E5E7EB;         /* Gris sutil para bordes */
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        /* Encabezado principal usando degradado de principal y oscuro */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: white;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+/* Busca esta secciÃ³n en tu <style> y reemplÃ¡zala */
+.header p {
+    margin-top: 10px;
+    font-weight: 400; /* Un poco mÃ¡s de grosor ayuda */
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.95); /* Blanco casi puro para mÃ¡ximo contraste */
+    text-transform: uppercase; /* Opcional, para mantener el estilo de la imagen */
+    letter-spacing: 1px;
+}
+
+        /* Tarjetas de contenido */
+        .card {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-light);
+        }
+
+        /* TipografÃ­a interior usando el color primario y secundario */
+        h2 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--secondary); /* Acento secundario turquesa */
+            padding-bottom: 12px;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--primary-dark);
+            font-size: 1.15rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        /* Listas con viÃ±etas del color principal */
+        ul, ol {
+            color: var(--text-muted);
+            padding-left: 24px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+        
+        li::marker {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        li > ul {
+            margin-top: 10px;
+        }
+
+        strong, b {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* Caja de Nota / Alerta */
+        .note {
+            background-color: var(--warning-bg);
+            border-left: 4px solid var(--warning-border);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            color: #92400E; /* Texto Ã¡mbar oscuro para legibilidad */
+            font-size: 0.95rem;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Tablas rediseÃ±adas con el color principal y terciario */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--primary-light);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 14px 16px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--primary-light); /* Uso del color terciario/suave */
+        }
+
+        tr:hover td {
+            background-color: #E0E7FF; /* Un poco mÃ¡s oscuro en hover */
+            color: var(--primary-dark);
+        }
+
+        /* Responsividad bÃ¡sica */
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body lang=es-419 style='word-wrap:break-word'>
+<div class="container">
 
-<div class=WordSection1>
+    <div class="header">
+        <h1>MANUAL DE USUARIO</h1>
+        <p>SISTEMA DE GESTIÃ“N DE RESERVAS RommyEC</p>
+    </div>
 
-<p class=MsoNormal align=center style='text-align:center'><b>MANUAL DE USUARIO:
-SISTEMA DE GESTIÓN DE RESERVAS RommyEC</b></p>
+    <div class="card">
+        <p>Este manual proporciona las instrucciones necesarias para operar el sistema desarrollado por Luis Franklin Salazar Poma. El software utiliza una arquitectura de 4 capas para garantizar la integridad de los datos y una experiencia de usuario fluida.</p>
+    </div>
 
-<p class=MsoNormal style='text-align:justify'>Este manual proporciona las
-instrucciones necesarias para operar el sistema desarrollado por Luis Franklin
-Salazar Poma. El software utiliza una arquitectura de 4 capas para garantizar
-la integridad de los datos y una experiencia de usuario fluida.</p>
+    <div class="card">
+        <h2>1. Inicio de SesiÃ³n y Seguridad</h2>
+        <p>El sistema cuenta con un control de acceso dual para proteger la informaciÃ³n y delimitar funciones.</p>
+        <ul>
+            <li><b>IdentificaciÃ³n:</b> Ingrese su correo electrÃ³nico y contraseÃ±a.</li>
+            <li><b>Roles de Usuario:</b>
+                <ul>
+                    <li><b>Administrador:</b> Control total del sistema.</li>
+                    <li><b>HuÃ©sped:</b> Acceso limitado a sus reservas.</li>
+                </ul>
+            </li>
+            <li><b>Cierre de SesiÃ³n:</b> Siempre cierre sesiÃ³n en equipos pÃºblicos.</li>
+        </ul>
+    </div>
 
-<p class=MsoNormal style='text-align:justify'><b>1. Inicio de Sesión y
-Seguridad</b></p>
+    <div class="card">
+        <h2>2. GestiÃ³n de HuÃ©spedes</h2>
+        
+        <h3>2.1 Registro</h3>
+        <ol>
+            <li>Ir a HuÃ©sped > Registrar.</li>
+            <li>Ingresar cÃ©dula (10 dÃ­gitos).</li>
+            <li>Completar datos personales.</li>
+            <li>Presionar Guardar.</li>
+        </ol>
 
-<p class=MsoNormal style='text-align:justify'>El sistema cuenta con un control
-de acceso dual para proteger la información y delimitar funciones.</p>
+        <h3>2.2 ActualizaciÃ³n</h3>
+        <p>Use la opciÃ³n actualizar para modificar datos del cliente ingresando su cÃ©dula.</p>
+    </div>
 
-<ul style='margin-top:0cm' type=disc>
- <li class=MsoNormal style='text-align:justify'>Identificación: Ingrese su
-     correo electrónico institucional o personal registrado y su contraseña
-     secreta.</li>
- <li class=MsoNormal style='text-align:justify'>Roles de Usuario:</li>
- <ul style='margin-top:0cm' type=circle>
-  <li class=MsoNormal style='text-align:justify'>Administrador: Tiene control
-      total sobre los catálogos de huéspedes, alojamientos y la gestión de
-      todas las reservas.</li>
-  <li class=MsoNormal style='text-align:justify'>Huésped: Perfil restringido
-      que solo permite visualizar disponibilidad y gestionar sus propias
-      reservaciones.</li>
- </ul>
- <li class=MsoNormal style='text-align:justify'>Cierre de Sesión: Siempre
-     utilice la opción Archivo &gt; Cerrar Sesión para asegurar que sus datos
-     no queden expuestos en terminales públicas.</li>
-</ul>
+    <div class="card">
+        <h2>3. CatÃ¡logo de Alojamientos</h2>
+        <ul>
+            <li><b>Capacidad MÃ¡xima:</b> Evita sobrecupos.</li>
+            <li><b>DescripciÃ³n:</b> Ej: â€œCabaÃ±a con vista al volcÃ¡nâ€.</li>
+        </ul>
+    </div>
 
-<div class=MsoNormal align=center style='text-align:center'><b>
+    <div class="card">
+        <h2>4. Proceso de Reservaciones</h2>
+        
+        <h3>4.1 Nueva Reserva</h3>
+        <ol>
+            <li>Ir a Reservas > Nueva Reserva.</li>
+            <li>Seleccionar alojamiento.</li>
+            <li>Elegir fechas.</li>
+        </ol>
 
-<hr size=2 width="100%" align=center>
+        <div class="note">
+            <strong>Nota:</strong> La fecha de salida no puede ser anterior a la de entrada.
+        </div>
 
-</b></div>
+        <ol start="4">
+            <li>Ingresar nÃºmero de personas.</li>
+            <li>Confirmar registro.</li>
+        </ol>
 
-<p class=MsoNormal style='text-align:justify'><b>2. Gestión de Huéspedes
-(Módulo Administrativo)</b></p>
+        <h3>4.2 CancelaciÃ³n</h3>
+        <p>Seleccione la reserva y presione eliminar con confirmaciÃ³n.</p>
+    </div>
 
-<p class=MsoNormal style='text-align:justify'>Este módulo permite mantener
-actualizada la base de datos de clientes que harán uso de los servicios.</p>
+    <div class="card">
+        <h2>5. SoluciÃ³n de Problemas</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problema</th>
+                        <th>Causa</th>
+                        <th>SoluciÃ³n</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Error CS1061</td>
+                        <td>Problema en el cÃ³digo</td>
+                        <td>Revisar archivo .Designer.cs</td>
+                    </tr>
+                    <tr>
+                        <td>BotÃ³n no funciona</td>
+                        <td>Evento no asignado</td>
+                        <td>Verificar evento Click</td>
+                    </tr>
+                    <tr>
+                        <td>No registra personas</td>
+                        <td>LÃ­mite superado</td>
+                        <td>Elegir otro alojamiento</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<p class=MsoNormal style='text-align:justify'>2.1 Registro de Nuevos Huéspedes</p>
-
-<ol style='margin-top:0cm' start=1 type=1>
- <li class=MsoNormal style='text-align:justify'>Diríjase a Huésped &gt;
-     Registrar.</li>
- <li class=MsoNormal style='text-align:justify'>Cédula: Ingrese los 10 dígitos
-     obligatorios (el sistema validará automáticamente que no existan letras).</li>
- <li class=MsoNormal style='text-align:justify'>Datos Personales: Complete
-     nombres, apellidos, correo y teléfono.</li>
- <li class=MsoNormal style='text-align:justify'>Presione Guardar. El sistema le
-     confirmará si el registro fue exitoso.</li>
-</ol>
-
-<p class=MsoNormal style='text-align:justify'><b>2.2 Búsqueda y Actualización</b></p>
-
-<p class=MsoNormal style='text-align:justify'>Si un cliente cambia de teléfono
-o correo, utilice Huésped &gt; Actualizar. Deberá ingresar la cédula para
-cargar los datos actuales, realizar el cambio y presionar Actualizar.</p>
-
-<div class=MsoNormal align=center style='text-align:center'><b>
-
-<hr size=2 width="100%" align=center>
-
-</b></div>
-
-<p class=MsoNormal style='text-align:justify'><b>3. Catálogo de Alojamientos</b></p>
-
-<p class=MsoNormal style='text-align:justify'>Aquí se administran las
-propiedades, habitaciones o espacios disponibles para reserva.</p>
-
-<ul style='margin-top:0cm' type=disc>
- <li class=MsoNormal style='text-align:justify'>Capacidad Máxima: Es el dato
-     más crítico. El sistema impedirá realizar reservas que superen este número
-     de personas para evitar sobrecupos.</li>
- <li class=MsoNormal style='text-align:justify'>Ubicación y Descripción:
-     Proporcione detalles claros (ej. &quot;Cabaña rústica con vista al
-     volcán&quot;) para facilitar la elección del cliente.</li>
-</ul>
-
-<div class=MsoNormal align=center style='text-align:center'><b>
-
-<hr size=2 width="100%" align=center>
-
-</b></div>
-
-<p class=MsoNormal style='text-align:justify'><b>4. Proceso de Reservaciones</b></p>
-
-<p class=MsoNormal style='text-align:justify'>Es el corazón del sistema y donde
-ocurre la validación lógica más importante.</p>
-
-<p class=MsoNormal style='text-align:justify'>4.1 Cómo realizar una Nueva
-Reserva</p>
-
-<ol style='margin-top:0cm' start=1 type=1>
- <li class=MsoNormal style='text-align:justify'>Seleccione Reservas &gt; Nueva
-     Reserva.</li>
- <li class=MsoNormal style='text-align:justify'>Alojamiento: Elija el ID del
-     alojamiento disponible. El sistema mostrará la capacidad máxima.</li>
- <li class=MsoNormal style='text-align:justify'>Fechas: Utilice los calendarios
-     para marcar la Fecha de Entrada y Fecha de Salida.</li>
- <ul style='margin-top:0cm' type=circle>
-  <li class=MsoNormal style='text-align:justify'><i>Nota: El sistema no permite
-      que la fecha de salida sea anterior a la de entrada.</i></li>
- </ul>
- <li class=MsoNormal style='text-align:justify'>Cantidad de Personas: Ingrese
-     cuántos huéspedes ocuparán el lugar. Si el número supera la capacidad del
-     alojamiento, el sistema emitirá una alerta y bloqueará el registro.</li>
- <li class=MsoNormal style='text-align:justify'>Confirmar: Presione Registrar.</li>
-</ol>
-
-<p class=MsoNormal style='text-align:justify'><b>4.2 Cancelación de Reservas</b></p>
-
-<p class=MsoNormal style='text-align:justify'>En caso de que un cliente
-desista, ingrese a Reservas &gt; Cancelar. Seleccione el ID de la reserva de la
-lista inferior y presione Eliminar. Se le pedirá una confirmación final para
-evitar pérdidas accidentales de datos.</p>
-
-<div class=MsoNormal align=center style='text-align:center'><b>
-
-<hr size=2 width="100%" align=center>
-
-</b></div>
-
-<p class=MsoNormal style='text-align:justify'><b>5. Solución de Problemas (FAQ)</b></p>
-
-<table class=MsoNormalTable border=0 cellspacing=3 cellpadding=0>
- <thead>
-  <tr>
-   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-   <p class=MsoNormal style='text-align:justify'>Problema</p>
-   </td>
-   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-   <p class=MsoNormal style='text-align:justify'>Causa Probable</p>
-   </td>
-   <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-   <p class=MsoNormal style='text-align:justify'>Solución</p>
-   </td>
-  </tr>
- </thead>
- <tr>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>Error &quot;CS1061&quot; al
-  compilar</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>Desconexión entre el diseño y
-  el código.</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>El desarrollador debe limpiar
-  las referencias en el archivo .Designer.cs.</p>
-  </td>
- </tr>
- <tr>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>El botón Buscar no responde</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>El evento no está enlazado en
-  el Inspector de Propiedades.</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>Verifique que el evento Click
-  apunte al método correcto.</p>
-  </td>
- </tr>
- <tr>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>No puedo registrar más personas</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>Se ha superado el límite físico
-  del alojamiento.</p>
-  </td>
-  <td style='border:solid windowtext 1.0pt;padding:.75pt .75pt .75pt .75pt'>
-  <p class=MsoNormal style='text-align:justify'>Seleccione un alojamiento con
-  mayor capacidad o divida la reserva en dos habitaciones.</p>
-  </td>
- </tr>
-</table>
-
-<div class=MsoNormal align=center style='text-align:center'><b>
-
-<hr size=2 width="100%" align=center>
-
-</b></div>
-
-<p class=MsoNormal style='text-align:justify'><b>6. Soporte Técnico</b></p>
-
-<p class=MsoNormal style='text-align:justify'>Para reportar fallas técnicas en
-la base de datos SQL Server o errores de desbordamiento de datos, contacte al
-administrador del sistema o al departamento de desarrollo asociado a la ESPOCH.</p>
-
-<p class=MsoNormal style='text-align:justify'><b>&nbsp;</b></p>
+    <div class="card">
+        <h2>6. Soporte TÃ©cnico</h2>
+        <p>Contacte al administrador o al departamento de desarrollo de la ESPOCH.</p>
+    </div>
 
 </div>
 
 </body>
-
 </html>

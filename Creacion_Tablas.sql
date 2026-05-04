@@ -68,6 +68,21 @@ CREATE TABLE Reserva (
     CONSTRAINT CHK_Fechas_Reserva CHECK (fecha_salida > fecha_ingreso),
     CONSTRAINT CHK_Personas_Minimas CHECK (numero_personas > 0)
 );
+
+-- 6. Crear tabla FACTURA (Con Cascada desde Reserva)
+CREATE TABLE Factura (
+    Id_factura INT IDENTITY(1,1) PRIMARY KEY,
+    Id_reserva INT UNIQUE NOT NULL, -- Relación 1 a 1: Una reserva = Una factura
+    fecha_emision DATETIME DEFAULT GETDATE(),
+    dias_ocupacion INT NOT NULL,
+    subtotal DECIMAL(10, 2) NOT NULL,
+    impuestos DECIMAL(10, 2) NOT NULL, 
+    total DECIMAL(10, 2) NOT NULL,
+    
+    -- Si la reserva se cancela/elimina, la factura también desaparece
+    CONSTRAINT FK_Factura_Reserva FOREIGN KEY (Id_reserva) 
+    REFERENCES Reserva(Id_reserva) ON DELETE CASCADE
+);
 GO
 
 

@@ -40,6 +40,7 @@ namespace _4.Capa_Presentacion
             comboBox2.Items.Clear();
             comboBox2.Items.AddRange(new string[] { "Completa", "Compartida", "Privada" });
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+
             textBox2.MaxLength = 10; // Cédula
             textBox3.ReadOnly = false;
         }
