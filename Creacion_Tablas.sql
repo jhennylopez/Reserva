@@ -1,4 +1,4 @@
--- 1. Crear la base de datos (Opcional, si no la has creado aún)
+-- 1. Crear la base de datos (Opcional, si no la has creado aÃºn)
 CREATE DATABASE SistemaReservasBD;
 GO
 
@@ -47,17 +47,6 @@ CREATE TABLE Alojamiento (
     REFERENCES Administrador(Id_administrador) ON DELETE CASCADE
 );
 
--- 4. Crear tabla IMAGEN_ALOJAMIENTO (Con Cascada desde Alojamiento)
-CREATE TABLE Imagen_Alojamiento (
-    Id_imagen INT IDENTITY(1,1) PRIMARY KEY,
-    ruta_imagen VARCHAR(500) NOT NULL,
-    Id_alojamiento INT NOT NULL,
-    
-    -- Al borrar el alojamiento, se borran sus imágenes
-    CONSTRAINT FK_Imagen_Alojamiento FOREIGN KEY (Id_alojamiento) 
-    REFERENCES Alojamiento(Id_alojamiento) ON DELETE CASCADE
-);
-
 -- 5. Crear tabla RESERVA (Con Cascada desde Huesped y Alojamiento)
 CREATE TABLE Reserva (
     Id_reserva INT IDENTITY(1,1) PRIMARY KEY,
@@ -68,7 +57,7 @@ CREATE TABLE Reserva (
     Id_huesped INT NOT NULL,
     Id_alojamiento INT NOT NULL,
     
-    -- Al borrar el huésped, se borran sus reservas
+    -- Al borrar el huÃ©sped, se borran sus reservas
     CONSTRAINT FK_Reserva_Huesped FOREIGN KEY (Id_huesped) 
     REFERENCES Huesped(Id_huesped) ON DELETE CASCADE,
     
